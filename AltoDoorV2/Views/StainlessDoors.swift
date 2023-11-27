@@ -13,34 +13,63 @@ import SDWebImageSwiftUI
 
 struct StainlessDoors: View {
     @StateObject private var viewModel = AllViewModel()
+    @State private var orientation = UIDeviceOrientation.unknown
+    @State private var searchText = ""
 
     var body: some View {
         VStack {
-            Text("Stainless Steel Coated Doors")
-                .font(Font.custom("IBMPlexSans-Medium", size: 30))
-            ScrollView(.horizontal) {
+            HStack(){
+                Spacer()
+                Text("Stainless Coated Doors")
+                    .padding(.leading)
+                    .font(Font.custom("IBMPlexSans-Medium", size: 30))
+                
+             
+                
+                SearchBar(text: $searchText)
+                    .padding(.horizontal)
+                    .frame(width: UIScreen.main.bounds.width / 4)
+                
+
+            }
+            ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(0..<2, id: \.self) { index in
-                        if let url = viewModel.imageStainlessURL(forIndex: index) {
+                    ForEach(filteredImages, id: \.self) { index in
+                        if let url = index {
                             NavigationLink(destination: DoorDetailsView(imageURL: url)) {
                                 AnimatedImage(url: url)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 800, height: 800)
+                                    .frame( width: 800)
                                     .clipped()
                                     .id(index)
                             }
                         }  else {
                             ProgressView() // Show a loading indicator while the image is being fetched
-                                .frame(width: 600, height: 600) // Adjust the size as needed
+                                .frame(width: 800, height: 800) // Adjust the size as needed
                         }
                     }
                 }
             }
             .onAppear {
                 viewModel.fetchStainlessImageURLs()
+                orientation = UIDevice.current.orientation
+                
             }
-          
+            .onRotate { newOrientation in
+                if UIDevice.current.orientation.rawValue <= 4{
+                    orientation = UIDevice.current.orientation
+                }
+                print("New Orientation: \(newOrientation)")
+                
+            }
+        }
+    }
+    var filteredImages: [URL?] {
+        if searchText.isEmpty {
+            return viewModel.StainlessImageUrls
+        } else {
+            return viewModel.StainlessImageUrls.filter { $0?.lastPathComponent.lowercased().contains(searchText.lowercased()) ?? false }
         }
     }
 }

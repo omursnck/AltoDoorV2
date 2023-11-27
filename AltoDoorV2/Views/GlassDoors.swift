@@ -12,40 +12,61 @@ import SDWebImageSwiftUI
 
 struct GlassDoors: View {
     @StateObject private var viewModel = AllViewModel()
+    @State private var orientation = UIDeviceOrientation.unknown
     @State private var searchText = ""
-
+    
     var body: some View {
-        VStack {
-           
-            
-            Text("Glass Coated Doors")
-                .font(Font.custom("IBMPlexSans-Medium", size: 30))
+        VStack() {
+            HStack(){
+                Spacer()
+                Text("Glass Coated Doors")
+                    .padding(.leading)
+                    .font(Font.custom("IBMPlexSans-Medium", size: 30))
+                
+             
+                
+                SearchBar(text: $searchText)
+                    .padding(.horizontal)
+                    .frame(width: UIScreen.main.bounds.width / 4)
+                
 
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    ForEach(0..<29, id: \.self) { index in
-                        if let url = viewModel.imageGlassURL(forIndex: index) {
-                            NavigationLink(destination: DoorDetailsView(imageURL: url)) {
-                                AnimatedImage(url: url)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 800, height: 800)
-                                    .clipped()
-                                    .id(index)
+            }
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(filteredImages, id: \.self) { index in
+                            if let url = index {
+                                NavigationLink(destination: DoorDetailsView(imageURL: url)) {
+                                    AnimatedImage(url: url)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame( width: 800)
+
+                                        .clipped()
+                                        .id(index)
+                                }
+                            } else {
+                                ProgressView()
+                                    .frame(width: 800, height: 800) // Adjust the size as needed
                             }
-                        } else {
-                            ProgressView()
-                                .frame(width: 600, height: 600)
                         }
                     }
                 }
-            }
-            .onAppear {
-                viewModel.fetchGlassImageURLs()
+                .onAppear {
+                    viewModel.fetchGlassImageURLs()
+                    orientation = UIDevice.current.orientation
+                    
+                }
+                .onRotate { newOrientation in
+                    if UIDevice.current.orientation.rawValue <= 4{
+                        orientation = UIDevice.current.orientation
+                    }
+                    print("New Orientation: \(newOrientation)")
+                    
+                }
             }
         }
-    }
-
+    
+    
     var filteredImages: [URL?] {
         if searchText.isEmpty {
             return viewModel.GlassImageUrls
