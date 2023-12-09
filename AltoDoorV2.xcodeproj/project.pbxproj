@@ -22,6 +22,9 @@
 		673EC66C2B1409CB00C59B1A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 673EC66B2B1409CB00C59B1A /* SDWebImage */; };
 		673EC66E2B1409CB00C59B1A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 673EC66D2B1409CB00C59B1A /* SDWebImageMapKit */; };
 		673EC6712B1409DA00C59B1A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 673EC6702B1409DA00C59B1A /* SDWebImageSwiftUI */; };
+		675027E32B15FAF200486377 /* DoorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675027E22B15FAF200486377 /* DoorInfoView.swift */; };
+		675027E52B16077000486377 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 675027E42B16077000486377 /* FirebaseFirestore */; };
+		675027E72B16077000486377 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 675027E62B16077000486377 /* FirebaseFirestoreSwift */; };
 		676F96FB2B140B34002D0F4B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 676F96FA2B140B34002D0F4B /* FirebaseStorage */; };
 		676F96FD2B140B39002D0F4B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 676F96FC2B140B39002D0F4B /* FirebaseAuth */; };
 		676F96FF2B1416C7002D0F4B /* DoorDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F96FE2B1416C7002D0F4B /* DoorDetailsView.swift */; };
@@ -44,6 +47,7 @@
 		673EC6642B14097200C59B1A /* CeramicDoors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CeramicDoors.swift; sourceTree = "<group>"; };
 		673EC6662B1409A300C59B1A /* StainlessDoors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StainlessDoors.swift; sourceTree = "<group>"; };
 		673EC6682B1409AF00C59B1A /* GlassDoors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassDoors.swift; sourceTree = "<group>"; };
+		675027E22B15FAF200486377 /* DoorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorInfoView.swift; sourceTree = "<group>"; };
 		676F96FE2B1416C7002D0F4B /* DoorDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorDetailsView.swift; sourceTree = "<group>"; };
 		676F97002B141913002D0F4B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		676F97022B14B208002D0F4B /* DeviceRotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRotationModifier.swift; sourceTree = "<group>"; };
@@ -57,8 +61,10 @@
 				673EC66C2B1409CB00C59B1A /* SDWebImage in Frameworks */,
 				676F96FD2B140B39002D0F4B /* FirebaseAuth in Frameworks */,
 				676F96FB2B140B34002D0F4B /* FirebaseStorage in Frameworks */,
+				675027E72B16077000486377 /* FirebaseFirestoreSwift in Frameworks */,
 				673EC6712B1409DA00C59B1A /* SDWebImageSwiftUI in Frameworks */,
 				673EC66E2B1409CB00C59B1A /* SDWebImageMapKit in Frameworks */,
+				675027E52B16077000486377 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +123,7 @@
 				676F96FE2B1416C7002D0F4B /* DoorDetailsView.swift */,
 				676F97002B141913002D0F4B /* SearchBar.swift */,
 				676F97022B14B208002D0F4B /* DeviceRotationModifier.swift */,
+				675027E22B15FAF200486377 /* DoorInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -150,6 +157,8 @@
 				673EC6702B1409DA00C59B1A /* SDWebImageSwiftUI */,
 				676F96FA2B140B34002D0F4B /* FirebaseStorage */,
 				676F96FC2B140B39002D0F4B /* FirebaseAuth */,
+				675027E42B16077000486377 /* FirebaseFirestore */,
+				675027E62B16077000486377 /* FirebaseFirestoreSwift */,
 			);
 			productName = AltoDoorV2;
 			productReference = 673EC63C2B1407AB00C59B1A /* AltoDoorV2.app */;
@@ -211,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				675027E32B15FAF200486377 /* DoorInfoView.swift in Sources */,
 				673EC6612B14091E00C59B1A /* MixDoors.swift in Sources */,
 				673EC6422B1407AB00C59B1A /* ContentView.swift in Sources */,
 				673EC6692B1409AF00C59B1A /* GlassDoors.swift in Sources */,
@@ -349,6 +359,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AltoDoorV2/AltoDoorV2.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AltoDoorV2/Preview Content\"";
@@ -387,6 +398,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AltoDoorV2/AltoDoorV2.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AltoDoorV2/Preview Content\"";
@@ -484,6 +496,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 673EC66F2B1409DA00C59B1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		675027E42B16077000486377 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 673EC6502B14082400C59B1A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		675027E62B16077000486377 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 673EC6502B14082400C59B1A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		676F96FA2B140B34002D0F4B /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;

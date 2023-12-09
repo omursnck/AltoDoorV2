@@ -17,24 +17,32 @@ struct CeramicDoors: View {
     var body: some View {
         VStack {
             HStack(){
-                Spacer()
+                Image("Altosquare")
+                   .resizable()
+                   .scaledToFit()
+                   .frame(width: 50, height: 50)
+                   .cornerRadius(10)
+                   .padding(.horizontal)
+                
                 Text("Ceramic Coated Doors")
                     .padding(.leading)
                     .font(Font.custom("IBMPlexSans-Medium", size: 30))
                 
-             
+                Spacer()
+
                 
                 SearchBar(text: $searchText)
                     .padding(.horizontal)
                     .frame(width: UIScreen.main.bounds.width / 4)
-                
-
+            
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(filteredImages, id: \.self) { index in
                         if let url = index {
-                            NavigationLink(destination: DoorDetailsView(imageURL: url)) {
+                            let doorFilename = viewModel.extractDocumentID(from: url) // Extract the correct document ID
+
+                            NavigationLink(destination: DoorDetailsView(imageURL: url, doorFilename: doorFilename)) {
                                 AnimatedImage(url: url)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -51,6 +59,7 @@ struct CeramicDoors: View {
             }
             .onAppear {
                 viewModel.fetchCeramicImageURLs()
+                viewModel.addCeramicDoors()
                 orientation = UIDevice.current.orientation
 
             }
@@ -64,11 +73,18 @@ struct CeramicDoors: View {
         
         }
     }
+  
     var filteredImages: [URL?] {
         if searchText.isEmpty {
             return viewModel.CeramicImageUrls
         } else {
-            return viewModel.CeramicImageUrls.filter { $0?.lastPathComponent.lowercased().contains(searchText.lowercased()) ?? false }
+            return viewModel.CeramicImageUrls.filter { url in
+                if let lastPathComponent = url?.lastPathComponent {
+                    let imageNameWithoutResolution = lastPathComponent.components(separatedBy: "_").first ?? ""
+                    return imageNameWithoutResolution.lowercased().contains(searchText.lowercased())
+                }
+                return false
+            }
         }
     }
 }

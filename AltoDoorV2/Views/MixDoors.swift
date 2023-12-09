@@ -19,24 +19,34 @@ struct MixDoors: View {
     var body: some View {
         VStack {
             HStack(){
-                Spacer()
+                
+                Image("Altosquare")
+                   .resizable()
+                   .scaledToFit()
+                   .frame(width: 50, height: 50)
+                   .cornerRadius(10)
+                   .padding(.horizontal)
+                
                 Text("Mix Coated Doors")
                     .padding(.leading)
                     .font(Font.custom("IBMPlexSans-Medium", size: 30))
                 
              
-                
+                Spacer()
+
                 SearchBar(text: $searchText)
                     .padding(.horizontal)
                     .frame(width: UIScreen.main.bounds.width / 4)
-                
+          
 
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(filteredImages, id: \.self) { index in
                         if let url = index {
-                            NavigationLink(destination: DoorDetailsView(imageURL: url)) {
+                            let doorFilename = viewModel.extractDocumentID(from: url) // Extract the correct document ID
+
+                            NavigationLink(destination: DoorDetailsView(imageURL: url, doorFilename: doorFilename)) {
                                 AnimatedImage(url: url)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -53,7 +63,7 @@ struct MixDoors: View {
                 }
             }.onAppear {
                 viewModel.fetchMixImageURLs()
-             
+                viewModel.addMixDoors()
                         orientation = UIDevice.current.orientation
 
                     }
@@ -70,9 +80,16 @@ struct MixDoors: View {
         if searchText.isEmpty {
             return viewModel.MixImageUrls
         } else {
-            return viewModel.MixImageUrls.filter { $0?.lastPathComponent.lowercased().contains(searchText.lowercased()) ?? false }
+            return viewModel.MixImageUrls.filter { url in
+                if let lastPathComponent = url?.lastPathComponent {
+                    let imageNameWithoutResolution = lastPathComponent.components(separatedBy: "_").first ?? ""
+                    return imageNameWithoutResolution.lowercased().contains(searchText.lowercased())
+                }
+                return false
+            }
         }
     }
+
 }
 
 

@@ -64,7 +64,7 @@ struct ContentView: View {
                                 .scaledToFit()
                                 .frame(width: 24, height: 24) // Adjust the size as needed
                             
-                            Text("Kompakt")
+                            Text("Compact")
                                 .font(.headline)
                         }                                    }
                     NavigationLink(destination: StainlessDoors()) {
@@ -79,7 +79,7 @@ struct ContentView: View {
                         }                                    }
                 }
                 .listStyle(SidebarListStyle())
-                .navigationTitle("Kategoriler")
+                .navigationTitle("Categories")
             AluminumDoors()
             
             }
