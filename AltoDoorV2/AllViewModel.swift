@@ -20,7 +20,96 @@ class AllViewModel: ObservableObject{
     @Published var KompaktImageUrls: [URL?] = Array(repeating: nil, count: 31)
     @Published var MixImageUrls: [URL?] = Array(repeating: nil, count: 30)
     @Published var StainlessImageUrls: [URL?] = Array(repeating: nil, count: 2)
+    @Published var selectedImageURL: URL?
+
+    @Published var cartItems: [CartModel] = []
+
+    struct CartModel: Codable {
+        // Define properties based on your cart item structure
+        var id: String?
+        var KaplamaModeli: String?
+        var EnBoy: String?
+        var Fiyat: String?
+        var imageURL: URL?  // Add the image URL property
+
+        // Add other properties as needed
+    }
+    func setSelectedImageURL(_ url: URL?) {
+         selectedImageURL = url
+     }
     
+    func fetchCartItems() {
+        guard let userUID = Auth.auth().currentUser?.uid else {
+              print("User is not logged in.")
+              return
+          }
+        let cartCollection = Firestore.firestore().collection("users").document(userUID).collection("cart")
+
+        
+        cartCollection.getDocuments { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("Error fetching cart items: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            // Parse documents into your CartModel or use your existing data model
+            let cartItems = documents.compactMap { document -> CartModel? in
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: document.data())
+                    var cartItem = try JSONDecoder().decode(CartModel.self, from: jsonData)
+                    
+                    // Extract the document ID from the image's filename
+                    if let imageURLString = document.get("imagePath") as? String,
+                       let imageURL = URL(string: imageURLString) {
+                        cartItem.imageURL = imageURL
+                    } else {
+                        // Handle the case where the imagePathString is nil or URL creation fails
+                        cartItem.imageURL = nil
+                    }
+
+
+                    
+                    return cartItem
+                } catch {
+                    print("Error decoding cart item: \(error.localizedDescription)")
+                    return nil
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.cartItems = cartItems
+            }
+        }
+    }
+
+    
+    func addToCart(door: Door) {
+        guard let userUID = Auth.auth().currentUser?.uid else {
+            print("User is not logged in.")
+            return
+        }
+
+        // Assuming you have a Firestore collection reference for the cart specific to each user
+        let userCartCollection = Firestore.firestore().collection("users").document(userUID).collection("cart")
+
+        // Convert the door data to a dictionary
+        let doorData: [String: Any] = [
+            "id": door.id ?? "",
+            "KaplamaModeli": door.KaplamaModeli ?? "",
+            "EnBoy": door.EnBoy ?? "",
+            "Fiyat": door.Fiyat ?? ""
+            // Add other properties as needed
+        ]
+
+        // Add the door data to the user's cart collection
+        userCartCollection.addDocument(data: doorData) { error in
+            if let error = error {
+                print("Error adding to cart: \(error.localizedDescription)")
+            } else {
+                print("Item added to cart successfully!")
+            }
+        }
+    }
 
     struct Door: Identifiable, Decodable {
         @DocumentID var id: String?
@@ -39,7 +128,7 @@ class AllViewModel: ObservableObject{
             case id
            }
     }
-
+    
 
     func extractDocumentID(from imageURL: URL) -> String {
         // Extract the document ID from the image's filename

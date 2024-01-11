@@ -119,6 +119,15 @@ struct DoorInfoView: View {
                                 .frame(maxWidth: 200)
                         }
                         Divider()
+                        HStack{
+                            
+                            Button("Add to Cart") {
+                             
+                                    viewModel.addToCart(door: doorInfo)
+                                
+                            }
+                        }
+                        Divider()
                         
                     } else {
                         ProgressView() // Show a loading indicator while the image is being fetched

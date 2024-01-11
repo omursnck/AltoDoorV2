@@ -7,13 +7,18 @@
 
 
 import SwiftUI
-
+import Firebase
 struct ContentView: View {
-
+    @Binding var email: String
+    @State private var loginError: String?
+    @ObservedObject var ViewModel: AuthViewModel
     var body: some View {
-       
+        
         NavigationView {
+            
+            VStack{
                 List {
+                    
                     NavigationLink(destination: AluminumDoors()) {
                         HStack {
                             Image("Aluminum") // Use the asset name here
@@ -36,7 +41,7 @@ struct ContentView: View {
                             Text("Glass")
                                 .font(.headline)
                         }
-                                    }
+                    }
                     NavigationLink(destination: MixDoors()) {
                         HStack {
                             Image("Mix") // Use the asset name here
@@ -76,25 +81,53 @@ struct ContentView: View {
                             
                             Text("Stainless")
                                 .font(.headline)
-                        }                                    }
+                        }
+                    }
+                    
+                    NavigationLink(destination: CartView()) {
+                        HStack {
+                            Image(systemName: "cart.fill") // Use the asset name here
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24) // Adjust the size as needed
+                            
+                            Text("Cart")
+                                .font(.headline)
+                        }
+                    }
+                    
+                }
+                Spacer()
+                
+          
+                    HStack{
+                        
+                        Text("Welcome \(email)")
+                            .padding()
+                        Button{
+                            ViewModel.logout()
+                        }label: {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .padding()
+                        }
+                        
+                        
+                        
+                    }
                 }
                 .listStyle(SidebarListStyle())
                 .navigationTitle("Categories")
-            AluminumDoors()
-            
+                AluminumDoors()
+                
             }
-        .navigationViewStyle(DefaultNavigationViewStyle())
-        
-      
-         
-    }
-   
-    
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+            .navigationViewStyle(DefaultNavigationViewStyle())
             
+            
+            
+        }
+        
+        
     }
-}
+    
+    
+

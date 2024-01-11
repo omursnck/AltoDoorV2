@@ -19,31 +19,31 @@ struct AluminumDoors: View {
         VStack {
             HStack(){
                 
-               
+                
                 Image("Altosquare")
-                   .resizable()
-                   .scaledToFit()
-                   .frame(width: 50, height: 50)
-                   .cornerRadius(10)
-                   .padding(.horizontal)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
                 Text("Aluminum Coated Doors")
                     .padding(.leading)
                     .font(Font.custom("IBMPlexSans-Medium", size: 30))
                 
                 Spacer()
-                 
+                
                 SearchBar(text: $searchText)
                     .padding(.horizontal)
                     .frame(width: UIScreen.main.bounds.width / 4)
-           
-
+                
+                
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     ForEach(filteredImages, id: \.self) { index in
                         if let url = index{
                             let doorFilename = viewModel.extractDocumentID(from: url) // Extract the correct document ID
-
+                            
                             NavigationLink(destination: DoorDetailsView(imageURL: url, doorFilename: doorFilename)) {
                                 AnimatedImage(url: url)
                                     .resizable()
@@ -55,6 +55,10 @@ struct AluminumDoors: View {
                                 
                                     .clipped()
                                     .id(index)
+                                  
+                            }
+                            .onTapGesture {
+                                viewModel.setSelectedImageURL(url)
                             }
                         } else {
                             ProgressView() // Show a loading indicator while the image is being fetched
@@ -82,7 +86,7 @@ struct AluminumDoors: View {
         }
         
     }
-
+    
     var filteredImages: [URL?] {
         if searchText.isEmpty {
             return viewModel.AluminumImageUrls

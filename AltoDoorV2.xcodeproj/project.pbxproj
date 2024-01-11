@@ -30,6 +30,11 @@
 		676F96FF2B1416C7002D0F4B /* DoorDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F96FE2B1416C7002D0F4B /* DoorDetailsView.swift */; };
 		676F97012B141913002D0F4B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F97002B141913002D0F4B /* SearchBar.swift */; };
 		676F97032B14B208002D0F4B /* DeviceRotationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F97022B14B208002D0F4B /* DeviceRotationModifier.swift */; };
+		67C3CB982B2BBB6700513172 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C3CB972B2BBB6700513172 /* CartView.swift */; };
+		67C3CB9A2B2BBBF800513172 /* CartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C3CB992B2BBBF800513172 /* CartItemCell.swift */; };
+		67EDC3FA2B29A9EF001C0589 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EDC3F92B29A9EF001C0589 /* AuthViewModel.swift */; };
+		67EDC3FC2B29BDD8001C0589 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EDC3FB2B29BDD8001C0589 /* LoginView.swift */; };
+		67EDC3FE2B2A31F9001C0589 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EDC3FD2B2A31F9001C0589 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +56,11 @@
 		676F96FE2B1416C7002D0F4B /* DoorDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorDetailsView.swift; sourceTree = "<group>"; };
 		676F97002B141913002D0F4B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		676F97022B14B208002D0F4B /* DeviceRotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRotationModifier.swift; sourceTree = "<group>"; };
+		67C3CB972B2BBB6700513172 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		67C3CB992B2BBBF800513172 /* CartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemCell.swift; sourceTree = "<group>"; };
+		67EDC3F92B29A9EF001C0589 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		67EDC3FB2B29BDD8001C0589 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		67EDC3FD2B2A31F9001C0589 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,7 @@
 				673EC6452B1407AE00C59B1A /* AltoDoorV2.entitlements */,
 				673EC6462B1407AE00C59B1A /* Preview Content */,
 				673EC64E2B1407C700C59B1A /* AllViewModel.swift */,
+				67EDC3F92B29A9EF001C0589 /* AuthViewModel.swift */,
 			);
 			path = AltoDoorV2;
 			sourceTree = "<group>";
@@ -122,8 +133,12 @@
 				673EC6682B1409AF00C59B1A /* GlassDoors.swift */,
 				676F96FE2B1416C7002D0F4B /* DoorDetailsView.swift */,
 				676F97002B141913002D0F4B /* SearchBar.swift */,
+				67C3CB972B2BBB6700513172 /* CartView.swift */,
 				676F97022B14B208002D0F4B /* DeviceRotationModifier.swift */,
 				675027E22B15FAF200486377 /* DoorInfoView.swift */,
+				67EDC3FB2B29BDD8001C0589 /* LoginView.swift */,
+				67EDC3FD2B2A31F9001C0589 /* RegisterView.swift */,
+				67C3CB992B2BBBF800513172 /* CartItemCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,8 +235,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67EDC3FA2B29A9EF001C0589 /* AuthViewModel.swift in Sources */,
 				675027E32B15FAF200486377 /* DoorInfoView.swift in Sources */,
 				673EC6612B14091E00C59B1A /* MixDoors.swift in Sources */,
+				67C3CB982B2BBB6700513172 /* CartView.swift in Sources */,
+				67EDC3FC2B29BDD8001C0589 /* LoginView.swift in Sources */,
 				673EC6422B1407AB00C59B1A /* ContentView.swift in Sources */,
 				673EC6692B1409AF00C59B1A /* GlassDoors.swift in Sources */,
 				673EC65F2B1408F200C59B1A /* AluminumDoors.swift in Sources */,
@@ -231,6 +249,8 @@
 				673EC6632B14093700C59B1A /* KompaktDoors.swift in Sources */,
 				673EC6402B1407AB00C59B1A /* AltoDoorV2App.swift in Sources */,
 				676F97012B141913002D0F4B /* SearchBar.swift in Sources */,
+				67C3CB9A2B2BBBF800513172 /* CartItemCell.swift in Sources */,
+				67EDC3FE2B2A31F9001C0589 /* RegisterView.swift in Sources */,
 				676F97032B14B208002D0F4B /* DeviceRotationModifier.swift in Sources */,
 				673EC64F2B1407C700C59B1A /* AllViewModel.swift in Sources */,
 			);
